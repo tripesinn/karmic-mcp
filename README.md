@@ -5,6 +5,8 @@
 [![Status](https://img.shields.io/badge/status-production-brightgreen)](https://github.com/tripesinn/karmic-mcp)
 [![MCP](https://img.shields.io/badge/protocol-MCP-blue)](https://modelcontextprotocol.io/)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![Made with](https://img.shields.io/badge/made%20with-Gemma--4--E4B--it-orange)](https://huggingface.co/unsloth/gemma-4-E4B-it-UD-MLX-4bit)
+[![Local](https://img.shields.io/badge/runs-100%25_local-success)](#-acknowledgments)
 
 **Live endpoint:** `http://34.163.125.49:8000`
 **Schema discovery:** `http://34.163.125.49:8000/mcp/discovery`
@@ -244,3 +246,5 @@ Pull requests welcome. For major changes, open an issue first to discuss what yo
 ---
 
 *Built with ❤️ by Jero · [@siderealAstro13](https://github.com/siderealAstro13) · Karmic Gochara Project*
+
+🤖 *Code generated with [Gemma-4-E4B-it](https://huggingface.co/unsloth/gemma-4-E4B-it-UD-MLX-4bit) running locally via [oMLX](https://github.com/jero87/omlx) on a Mac Mini M4 (16GB RAM), orchestrated by [Hermes Agent](https://hermes-agent.nousresearch.com). 100% local, 0 cloud calls during development.*
