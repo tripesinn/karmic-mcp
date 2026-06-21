@@ -1,84 +1,57 @@
 ---
-name: Karmic Gochara
-description: Real-time astrological transit calculations with Swiss Ephemeris
+name: MCP Deployment Stack
+description: Procedural guide for deploying a Model Context Protocol (MCP) server from source code to a public, secure endpoint via Cloudflare/GCP.
 category: wellness
-keywords: ["astrology", "wellness", "predictions", "natal chart", "transits"]
+keywords: ["astrology", "wellness", "predictions", "natal chart", "transits", "mcp", "cloudflare"]
 ---
 
-# Karmic Gochara
+# 🚀 MCP Deployment Stack (Optimisé)
 
-Real-time astrological analysis powered by Swiss Ephemeris. Get personalized natal chart readings and transit predictions using the Doctrine Évolutive Synthétique framework — a sophisticated blend of Jyotish, Western astrology, and psychological insight.
+Ce skill est un guide procédural pour le déploiement de serveurs Model Context Protocol (MCP) de zéro à une API publique et sécurisée sur GCP, en passant par Cloudflare Tunnel.
 
-## Features
+## 🎯 Résolution du Problème Edge Gallery (CRITIQUE)
 
-- **Real-time Calculations** — Swiss Ephemeris-backed precision (not hallucinated)
-- **Personalized Analysis** — Natal chart interpretation based on your birth data
-- **Doctrine Évolutive Synthétique** — Proprietary astrological framework combining multiple traditions
-- **Offline-Capable** — Works with Gemma-4-E4B on Pixel 9+ without cloud dependencies
-- **Multi-language** — Responses in English and French
+Pour que l'Agent (Edge Gallery) retrouve le Skill, la méthode la plus fiable est de **servir le markdown via GitHub**, pas directement via l'API.
 
-## How It Works
+**Méthode recommandée :**
+Utilisez le lien GitHub du dépôt source (`https://github.com/tripesinn/karmic-mcp`) dans Edge Gallery. L'agent peut lire le `SKILL.md` directement, ce qui garantit la stabilité.
 
-Karmic Gochara MCP (Model Context Protocol) server connects to Gemma-4-E4B on your device. It calculates:
+**Méthode de secours :**
+Si GitHub n'est pas disponible, le serveur FastAPI doit servir le fichier `SKILL.md` via un endpoint `/SKILL.md`.
 
-1. **Natal Chart** — Your birth planets, nodes, and sensitive points
-2. **Current Transits** — Where planets are today relative to your chart
-3. **Doctrine Reading** — Astrological interpretation in the Doctrine Évolutive Synthétique system
+## ⚙️ Workflow Complet (Le cycle de vie du produit)
 
-The MCP server handles all calculations and data; Gemma provides natural language interpretation locally on your device.
+Le déploiement réussi dépend de ces phases :
 
-## Requirements
+1. **Code Base** (GCP VM) : Implémentation du serveur MCP en local.
+2. **Infrastructure** (Cloudflare) : Configuration du tunnel (`config.yml`).
+3. **Public Access** (GCP/Cloudflare) : Mise à jour du firewall GCP.
+4. **Skillization** : Documentation du processus.
 
-- **Device** — Pixel 8 Pro or Pixel 9+ with Gemma-4-E2B-it or E4B-it
-- **Connection** — Internet for MCP server communication (or local server for offline)
-- **Optional** — Run your own local MCP server for fully offline use
+## 🔑 Maintenance Critique : Cloudflare Origin Certificate
 
-## Setup
+Le tunnel nécessite un certificat d'origine (`cert.pem`) pour valider la connexion.
 
-### Via Edge Gallery
+**Action Requise (Si le tunnel échoue) :**
+1. Obtenir `cert.pem` de Cloudflare.
+2. Placer le fichier sur la VM.
+3. Mettre à jour le fichier `~/.cloudflared/config.yml` pour spécifier le chemin via l'option `origincertPath`.
 
-1. Open Edge Gallery on your Pixel
-2. Go to **Agent Skills** → **Load skill from URL**
-3. Paste: `https://api.karmicgochara.app`
-4. Or use GitHub directly: `https://github.com/tripesinn/karmic-mcp`
+## ⚡️ Workflow de Démarrage (Simplifié)
 
-### Local Deployment
+**Sur la VM GCP (dev-vm) :**
 
-For fully offline use, deploy the MCP server locally:
-```bash
-git clone https://github.com/tripesinn/karmic-mcp
-cd karmic-mcp
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-python server.py
-```
+1. **Démarrage du service :** `sudo systemctl restart karmic-mcp`
+2. **Démarrage du tunnel :** `cloudflared tunnel run karmic-mcp` (Note : `sudo` n'est plus nécessaire).
+3. **Validation (Local) :** `curl -s http://localhost:8000/health` (Doit retourner `200`)
+4. **Validation (Public) :** `curl -s -o /dev/null -w "%{http_code} %{time_total}s\n" https://api.karmicgochara.app/health` (Doit retourner `200`)
 
-## Usage Examples
+## 💡 Exemples d'Utilisation
 
-**Ask Gemma:**
+Ce skill sert de documentation de référence pour le processus de livraison de services MCP, de la conception au déploiement Cloudflare.
 
-- "What are my astrological transits today?"
-- "Analyze my natal chart for 31/10/1974 8h25 Athis-Mons"
-- "What does the Moon opposition mean for me right now?"
-
-**Response includes:**
-- ROM/Dharma (Ketu/Rahu) — past-life patterns vs. soul direction
-- Porte Invisible → Porte Visible — unconscious blocks → conscious stage
-- Épreuve Lilith — friction points and transformation
-- Alternative de Conscience — actionable insight
-
-## Documentation
-
-- **GitHub Repository** — https://github.com/tripesinn/karmic-mcp
-- **MCP Server URL** — https://api.karmicgochara.app
-- **Doctrine Framework** — See README.md for full methodology
-
-## Support
-
-For issues or feature requests, open an issue on GitHub:
-https://github.com/tripesinn/karmic-mcp/issues
-
+**Déploiement :**
+1. Cloner le repo source : `git clone https://github.com/tripesinn/karmic-mcp`
+2. Configurer et lancer le service.
+3. Configurer le tunnel Cloudflare.
 ---
-
-**Status:** ✅ Production-ready | **License:** MIT | **Language:** EN/FR
